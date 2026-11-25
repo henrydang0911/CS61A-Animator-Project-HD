@@ -1,0 +1,39 @@
+Extension: Math mode (Real / Complex / Polar) + playback loop
+
+What changed
+------------
+Beside Draw mode, Math mode adds preset 2D math visualizations that reuse the
+existing Path Create animation, speed controls, play/pause/restart, and error
+popup. A loop button (⟲) was also added for all animations (Draw and Math):
+when enabled, the clock wraps at the end instead of holding still.
+
+Math mode has three tabs:
+
+1. Real — y = f(x) presets
+   Dropdown shows the generic name (e.g. y = x², y = sin(x)). The formula
+   panel below shows the parameterized form with horizontal shift b and any
+   of a, ω, m that apply, e.g. y = (x − b)², y = a·sin(ω(x − b)),
+   y = m(x − b), y = a^(x − b).
+   Includes polynomials, |x|, sgn, step/Heaviside and Kronecker δ (with
+   open/filled markers / lollipop), inverse trig, exp, ln, √x, 1/x, and aˣ.
+   Asymptotes clamp to the viewport edge then break so branches do not
+   falsely connect. A 3D-style menu option reports
+   "3D: Unsupported Functionality".
+
+2. Complex — e^iθ on the Argand plane
+   Unit circle plus a single tangent arrow i·e^iθ that traces a full lap.
+   Axes are labeled Re / Im; Im ticks use i, 2i, −i, ….
+   θ ∈ [0, 2π] sets the start angle (pi, pi/2, …); empty starts at 0.
+   Restart and loop replay the trace from that θ. Sliders: a (radius),
+   b (Re shift), ω (sweep speed).
+
+3. Polar — r(θ) curves on the same Argand axes
+   Circles (|z−b|=|a|, r=2a cos/sin θ), roses, cardioid, limaçon,
+   lemniscate, log spiral, Archimedes spiral. a / ω / b as above.
+
+Constraints respected
+---------------------
+- test/ untouched; gleam test -- q1 still passes.
+- Point, Line, and Path unchanged; drawings still use Line Paths only.
+- init, update, view, public_url, and video_url remain in app.gleam.
+- No edits required to evaluator/parser/builtins for Gradescope Phase 1 types.
