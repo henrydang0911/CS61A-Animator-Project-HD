@@ -2,3 +2,5 @@ build/
 .provenance/
 *.slog
 *.slog.meta
+61a-fa26-animator-bundle-*.zip
+public/
