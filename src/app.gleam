@@ -25,7 +25,7 @@ import shape.{type Path}
 
 /// Your app's public address, once you've deployed it in Problem 13, such as
 /// "https://your-username.github.io/animator/".
-pub const public_url = "https://henrydang0911.github.io/"
+pub const public_url = "https://henrydang0911.github.io/CS61A-Animator-Project-HD/"
 
 /// Set to True if you would like your app's URL included in the course gallery.
 pub const include_app_in_gallery = False
