@@ -1,0 +1,4 @@
+build/
+.provenance/
+*.slog
+*.slog.meta

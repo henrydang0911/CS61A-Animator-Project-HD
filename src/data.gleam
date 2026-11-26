@@ -136,14 +136,24 @@ fn from_examples() -> Library {
 fn normalize(library: Library) -> Library {
   case library.drawings {
     [] -> from_examples()
-    drawings ->
+    drawings -> {
+      // Merge in any starter examples that aren't in the saved library yet.
+      let drawings =
+        list.fold(examples.all, drawings, fn(acc, example) {
+          let #(name, source) = example
+          case list.key_find(acc, name) {
+            Ok(_) -> acc
+            Error(Nil) -> list.append(acc, [#(name, source)])
+          }
+        })
       case list.key_find(drawings, library.current) {
-        Ok(_) -> library
+        Ok(_) -> Library(..library, drawings: drawings)
         Error(Nil) -> {
           let assert [#(name, _), ..] = drawings
-          Library(..library, current: name)
+          Library(current: name, drawings: drawings)
         }
       }
+    }
   }
 }
 

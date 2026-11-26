@@ -93,4 +93,51 @@ fn branch(p: Point, d: Point, level: Int, depth: Int) -> List(Path) {
 }
 ",
   ),
+  #(
+    "sierpinski",
+    "fn draw(shape_slider: Int) -> List(Path) {
+  // Depth 1…5 via the shape slider (keeps path count under the limit).
+  let depth = 1 + shape_slider / 25
+  sierpinski(Point(0, -360), Point(-400, 340), Point(400, 340), depth, 0)
+}
+
+fn mid(a: Point, b: Point) -> Point {
+  Point({ a.x + b.x } / 2, { a.y + b.y } / 2)
+}
+
+fn pow3(n: Int) -> Int {
+  case n <= 0 {
+    True -> 1
+    False -> 3 * pow3(n - 1)
+  }
+}
+
+fn triangle(a: Point, b: Point, c: Point, t: Int) -> List(Path) {
+  [
+    Path(Line(a, b), t, t + 2, 2),
+    Path(Line(b, c), t + 2, t + 4, 2),
+    Path(Line(c, a), t + 4, t + 6, 2),
+  ]
+}
+
+fn sierpinski(a: Point, b: Point, c: Point, depth: Int, t: Int) -> List(Path) {
+  case depth == 0 {
+    True -> triangle(a, b, c, t)
+    False -> {
+      let ab = mid(a, b)
+      let bc = mid(b, c)
+      let ca = mid(c, a)
+      let step = pow3(depth - 1) * 6
+      list.append(
+        sierpinski(a, ab, ca, depth - 1, t),
+        list.append(
+          sierpinski(ab, b, bc, depth - 1, t + step),
+          sierpinski(ca, bc, c, depth - 1, t + step * 2),
+        ),
+      )
+    }
+  }
+}
+",
+  ),
 ]
